@@ -34,23 +34,28 @@ static const bool coutDEBUG = false;
 /// A flag for the mode (true = manual; false = dynamic). Manual for static map or dynamic for dynamic map.
 static const bool manual = true;
 /// A flag for the visualization of 3D nodes (true = on; false = off)
-static const bool visualization = false && manual;
+static const bool visualization = true && manual;
 /// A flag for the visualization of 2D nodes (true = on; false = off)
-static const bool visualization2D = false && manual;
+static const bool visualization2D = true && manual;
 /// A flag to toggle reversing (true = on; false = off)
 static const bool reverse = true;
 /// A flag to toggle the connection of the path via Dubin's shot (true = on; false = off)
+/// 通过使用dubins扩展节点的切换标志
 static const bool dubinsShot = true;
-/// A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off)
-static const bool dubins = false;
+///如果启用了反转（true=on；false=off），则切换Dubin启发式的标志应为false。
+///A flag to toggle the Dubin's heuristic, this should be false, if reversing is enabled (true = on; false = off)
+static const bool dubins = true;
 /*!
    \var static const bool dubinsLookup
    \brief A flag to toggle the Dubin's heuristic via lookup, potentially speeding up the search by a lot
    \todo not yet functional
+   \ var静态常量bool dubinslookup
+   \一个标记，通过查找切换Dubin的启发式搜索，可能会大大加快搜索速度
+   \ TODO还不能正常工作
 */
 static const bool dubinsLookup = false && dubins;
 /// A flag to toggle the 2D heuristic (true = on; false = off)
-static const bool twoD = true;
+static const bool twoD = false;
 
 // _________________
 // GENERAL CONSTANTS
@@ -89,6 +94,7 @@ static const float tieBreaker = 0.01;
 // HEURISTIC CONSTANTS
 
 /// [#] --- A factor to ensure admissibility of the holonomic with obstacles heuristic
+///一个保证有障碍完整性的因素启发式
 static const float factor2D = sqrt(5) / sqrt(2) + 1;
 /// [#] --- A movement cost penalty for turning (choosing non straight motion primitives)
 static const float penaltyTurning = 1.05;

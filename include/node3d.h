@@ -17,6 +17,7 @@ class Node3D {
   /// The default constructor for 3D array initialization
   Node3D(): Node3D(0, 0, 0, 0, 0, nullptr) {}
   /// Constructor for a node with the given arguments
+  /// 具有给定参数的节点的构造函数
   Node3D(float x, float y, float t, float g, float h, const Node3D* pred, int prim = 0) {
     this->x = x;
     this->y = y;

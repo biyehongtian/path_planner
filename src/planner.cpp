@@ -7,7 +7,8 @@ using namespace HybridAStar;
 Planner::Planner() {
   // _____
   // TODOS
-  //    initializeLookups();
+     initializeLookups();
+
   // Lookup::collisionLookup(collisionLookup);
   // ___________________
   // COLLISION DETECTION
@@ -149,6 +150,7 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
 //                                      PLAN THE PATH
 //###################################################
 void Planner::plan() {
+  std::cout << "=============" << endl;
   // if a start as well as goal are defined go ahead and plan
   if (validStart && validGoal) {
 

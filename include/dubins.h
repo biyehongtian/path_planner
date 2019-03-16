@@ -52,7 +52,7 @@ extern DubinsWord dubins_words[];
 
 typedef struct
 {
-    double qi[3];       // the initial configuration
+    double qi[3];       // the initial configuration 初始配置
     double param[3];    // the lengths of the three segments
     double rho;         // model forward velocity / model angular velocity
     int type;           // path type. one of LSL, LSR, ...

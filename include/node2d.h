@@ -8,6 +8,7 @@ namespace HybridAStar {
 
 /*!
    \brief A two dimensional node class used for the holonomic with obstacles heuristic.
+   \一个二维节点类用于有障碍物的完整性启发式
 
    Each node has a unique discrete position (x,y).
 */
@@ -77,6 +78,7 @@ class Node2D {
   /// Updates the cost-to-go for the node x' to the goal node.
   void updateH(const Node2D& goal) { h = movementCost(goal); }
   /// The heuristic as well as the cost measure.
+  /// 启发式和成本度量。
   float movementCost(const Node2D& pred) const { return sqrt((x - pred.x) * (x - pred.x) + (y - pred.y) * (y - pred.y)); }
 
   // CUSTOM OPERATORS

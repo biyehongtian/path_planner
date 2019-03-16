@@ -16,6 +16,7 @@ Node3D* dubinsShot(Node3D& start, const Node3D& goal, CollisionDetection& config
 */
 struct CompareNodes {
   /// Sorting 3D nodes by increasing C value - the total estimated cost
+  /// 通过增加C值对3D节点进行排序-总估计成本
   bool operator()(const Node3D* lhs, const Node3D* rhs) const {
     return lhs->getC() > rhs->getC();
   }
@@ -50,6 +51,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
   ros::Duration d(0.003);
 
   // OPEN LIST AS BOOST IMPLEMENTATION
+  // 以Boost实现方式打开列表
   typedef boost::heap::binomial_heap<Node3D*,
           boost::heap::compare<CompareNodes>
           > priorityQueue;
@@ -355,6 +357,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
   float twoDoffset = 0;
 
   // if dubins heuristic is activated calculate the shortest path
+  // 如果Dubins启发式被激活，计算最短路径
   // constrained without obstacles
   if (Constants::dubins) {
 
@@ -404,7 +407,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
     //      dubins_init(q0, q1, Constants::r, &dubinsPath);
     //      dubinsCost = dubins_path_length(&dubinsPath);
 
-    ompl::base::DubinsStateSpace dubinsPath(Constants::r);
+     ompl::base::DubinsStateSpace dubinsPath(Constants::r);
     State* dbStart = (State*)dubinsPath.allocState();
     State* dbEnd = (State*)dubinsPath.allocState();
     dbStart->setXY(start.getX(), start.getY());
@@ -431,6 +434,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
   }
 
   // if twoD heuristic is activated determine shortest path
+  // 如果激活双向启发式，确定最短路径
   // unconstrained with obstacles
   if (Constants::twoD && !nodes2D[(int)start.getY() * width + (int)start.getX()].isDiscovered()) {
     //    ros::Time t0 = ros::Time::now();
@@ -454,6 +458,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
   }
 
   // return the maximum of the heuristics, making the heuristic admissable
+  // 返回启发式的最大值，使启发式可接受
   start.setH(std::max(reedsSheppCost, std::max(dubinsCost, twoDCost)));
 }
 

@@ -11,7 +11,7 @@ namespace Lookup {
 //                                      DUBINS LOOKUP
 //###################################################
 inline void dubinsLookup(float* lookup) {
-  bool DEBUG = false;
+  bool DEBUG = true;
   std::cout << "I am building the Dubin's lookup table...";
 
   DubinsPath path;
@@ -30,6 +30,7 @@ inline void dubinsLookup(float* lookup) {
   double goal[] = {0, 0, 0};
 
   // iterate over the X index of a grid cell
+  // 迭代网格单元的X索引
   for (int X = 0; X < width; ++X) {
     start[0] = X;
 
@@ -62,6 +63,7 @@ inline void dubinsLookup(float* lookup) {
   }
 
   std::cout << " done!" << std::endl;
+exit(0);
 }
 
 //###################################################
