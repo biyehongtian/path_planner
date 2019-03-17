@@ -146,6 +146,17 @@ void Planner::setGoal(const geometry_msgs::PoseStamped::ConstPtr& end) {
   }
 }
 
+void Planner::tracePath2D(Node2D* node, int j, std::vector<Node3D>* path) {
+
+  for (int i = 0; i<j; i++ ) {
+    if (node[i].getX() > 0) {
+
+    Node3D node3d(node[i].getX(), node[i].getY(), 0, 0, 0, nullptr);
+  path->push_back(node3d);
+    }
+    
+  }
+}
 //###################################################
 //                                      PLAN THE PATH
 //###################################################
@@ -185,6 +196,10 @@ void Planner::plan() {
     // set theta to a value (0,2PI]
     t = Helper::normalizeHeadingRad(t);
     Node3D nStart(x, y, t, 0, 0, nullptr);
+
+
+ROS_ERROR_STREAM("plan------=" << nodes2D << "|point:" << nStart.getX() << ","
+ << nStart.getY() << "|goal:" << nGoal.getX() << "," << nGoal.getY());
     // ___________
     // DEBUG START
     //    Node3D nStart(108.291, 30.1081, 0, 0, 0, nullptr);
@@ -204,7 +219,17 @@ void Planner::plan() {
     // TRACE THE PATH
     smoother.tracePath(nSolution);
     // CREATE THE UPDATED PATH
-    path.updatePath(smoother.getPath());
+    std::vector<Node3D> path2Dpathxx;
+
+    Node2D* solution2 = Algorithm::aStarDirect(nGoal, nStart, nodes2D, width, height, configurationSpace, visualization);
+    while (solution2->getPred() != nullptr) {
+      Node3D node3d(solution2->getX(), solution2->getY(), 0, 0, 0, nullptr);
+      path2Dpathxx.push_back(node3d);
+      solution2 = solution2->getPred(); 
+    }
+
+    // tracePath2D(nodes2D, width * height, &path2Dpathxx);
+    path.updatePath(path2Dpathxx);
     // SMOOTH THE PATH
     smoother.smoothPath(voronoiDiagram);
     // CREATE THE UPDATED PATH

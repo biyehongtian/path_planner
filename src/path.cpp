@@ -51,9 +51,9 @@ void Path::updatePath(std::vector<Node3D> nodePath) {
 
   for (size_t i = 0; i < nodePath.size(); ++i) {
     addSegment(nodePath[i]);
-    addNode(nodePath[i], k);
+    // addNode(nodePath[i], k);
     k++;
-    addVehicle(nodePath[i], k);
+    // addVehicle(nodePath[i], k);
     k++;
   }
 

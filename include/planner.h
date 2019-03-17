@@ -47,6 +47,7 @@ class Planner {
   */
   void setMap(const nav_msgs::OccupancyGrid::Ptr map);
 
+void tracePath2D(Node2D* node, int j, std::vector<Node3D>* path);
   /*!
      \brief setStart
      \param start the start pose
