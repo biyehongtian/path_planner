@@ -157,6 +157,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
       // GOAL TEST
       if (*nPred == goal || iterations > Constants::iterations) {
         // DEBUG
+        ROS_ERROR_STREAM("3d iterations:" << iterations);
         return nPred;
       }
 
@@ -170,6 +171,7 @@ Node3D* Algorithm::hybridAStar(Node3D& start,
 
           if (nSucc != nullptr && *nSucc == goal) {
             //DEBUG
+            ROS_ERROR_STREAM("3d iterations:" << iterations);
             // std::cout << "max diff " << max << std::endl;
             return nSucc;
           }
@@ -363,8 +365,7 @@ Node2D start(start1.getX(), start1.getY(), 0, 0, nullptr);
   // PREDECESSOR AND SUCCESSOR INDEX
   int iPred, iSucc;
   float newG;
-ROS_ERROR_STREAM("a start=========------------------=" << nodes2D << "|point:" << start.getX() << ","
- << start.getY() << "|goal:" << goal.getX() << "," << goal.getY());
+// ROS_ERROR_STREAM("a start=========------------------=" << nodes2D << "|point:" << start.getX() << "," << start.getY() << "|goal:" << goal.getX() << "," << goal.getY());
   // reset the open and closed list
   for (int i = 0; i < width * height; ++i) {
     nodes2D[i].reset();
@@ -423,7 +424,7 @@ ROS_ERROR_STREAM("a start=========------------------=" << nodes2D << "|point:" <
       // _________
       // GOAL TEST
       if (*nPred == goal) {
-        ROS_ERROR_STREAM("this is a star goal" <<   nPred->getX() << "," << nPred->getY());
+        ROS_DEBUG_STREAM("this is a star goal" <<   nPred->getX() << "," << nPred->getY());
         goal.setPred(nPred);
         nPred = &goal;
         return nPred;
@@ -454,7 +455,7 @@ ROS_ERROR_STREAM("a start=========------------------=" << nodes2D << "|point:" <
               // put successor on open list
               nSucc->open();
               nodes2D[iSucc] = *nSucc;
-              ROS_ERROR_STREAM("this is a star next goal - - with point" << iSucc << "|" <<  nodes2D[iSucc].getX() << "," << nodes2D[iSucc].getY());
+              ROS_DEBUG_STREAM("this is a star next goal - - with point" << iSucc << "|" <<  nodes2D[iSucc].getX() << "," << nodes2D[iSucc].getY());
               nodes2D[iSucc].setPred(nPred);
               O.push(&nodes2D[iSucc]);
               delete nSucc;
